@@ -303,7 +303,7 @@ public class TryString {
      * Example: input "aaabbcc" -> output "a3b2c2"
      * */
 
-    public static void StringCompression(String input) {
+    public static void stringCompression(String input) {
         StringBuilder sb = new StringBuilder();
         int count = 1;
         for (int i = 1; i <= input.length(); i++) {
@@ -322,7 +322,7 @@ public class TryString {
      * Example: input "babad" -> output "bab" or "aba"
      * */
 
-    public static void LongestPalindromicSubstring(String input) {
+    public static void longestPalindromicSubstring(String input) {
         System.out.println(longestPalindrome(input));
     }
 
@@ -346,6 +346,179 @@ public class TryString {
     private static int expand(String s, int l, int r) {
         while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) { l--; r++; }
         return r - l - 1;
+    }
+
+    /* Check if two strings are one edit away (insert, remove, or replace a character)
+     * @param s1 The first input string
+     * @param s2 The second input string
+     * @return void
+     * Approach: Comparing lengths and characters to determine if they are one edit away
+     * Example: input1 "pale", input2 "ple" -> output true
+     * Example: input1 "pale", input2 "bake" -> output false
+     * */
+
+    public static boolean isOneEditAway(String s1, String s2) {
+        if (Math.abs(s1.length() - s2.length()) > 1) return false;
+
+        String small = s1.length() < s2.length() ? s1 : s2;
+        String big = s1.length() < s2.length() ? s2 : s1;
+        int i = 0, j = 0, diff = 0;
+
+        while (i < small.length() && j < big.length()) {
+            if (small.charAt(i) != big.charAt(j)) {
+                if (++diff > 1) return false;
+                if (small.length() != big.length()) j++;
+                else { i++; j++; }
+            } else { i++; j++; }
+        }
+        return true;
+    }
+
+    /* Check if parentheses/brackets/braces in a string are balanced
+     * @param s The input string to be checked
+     * @return void
+     * Approach: Using a stack to track opening and closing symbols
+     * Example: input "({[]})" -> output true
+     * Example: input "{[}]" -> output false
+     * */
+
+    public static boolean isBalanced(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if ("({[".indexOf(c) != -1) stack.push(c);
+            else if (")}]".indexOf(c) != -1) {
+                if (stack.isEmpty()) return false;
+                char open = stack.pop();
+                if (!matches(open, c)) return false;
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    /* Helper method to check matching pairs */
+    static boolean matches(char open, char close) {
+        return (open == '(' && close == ')') ||
+                (open == '{' && close == '}') ||
+                (open == '[' && close == ']');
+    }
+
+    /* Generate all substrings of a string
+     * @param str The input string to be processed
+     * @return void
+     * Approach: Using nested loops to generate substrings
+     * Example: input "abc" -> output "a", "ab", "abc", "b", "bc", "c"
+     * */
+
+    public static void allSubstrings (String str) {
+        List<String> subs = new ArrayList<>();
+        for (int i = 0; i < str.length(); i++)
+            for (int j = i + 1; j <= str.length(); j++)
+                subs.add(str.substring(i, j));
+        System.out.println(subs);
+    }
+
+    /* Find common characters between two strings
+     * @param s1 The first input string
+     * @param s2 The second input string
+     * @return void
+     * Approach: Using Java Streams to filter and collect common characters
+     * Example: input1 "apple", input2 "plead" -> output ['p', 'l', 'e']
+     * */
+
+    public static void commonChars(String s1, String s2) {
+        Set<Character> common = s1.chars().mapToObj(c -> (char) c)
+                .filter(ch -> s2.indexOf(ch) != -1)
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+        System.out.println(common);
+    }
+
+    /* Validate email format
+     * @param email The input email string to be validated
+     * @return void
+     * Approach: Using regex to match standard email format
+     * Example: input "akhil@gmail.com" -> output true
+     * */
+
+    public static void doEmailValidation(String email) {
+        boolean valid = email.matches("^[\\w._%+-]+@[\\w.-]+\\.[A-Za-z]{2,6}$");
+        System.out.println(valid);
+    }
+
+    /* Find the first unique word in a sentence
+     * @param sentence The input sentence to be processed
+     * @return void
+     * Approach: Using Java Streams to split, group, and find the first unique word
+     * Example: input "Java is great and Java is powerful" -> output "great"
+     * */
+
+    public static void findFirstUniqueWord (String sentence) {
+        String[] words = sentence.toLowerCase().split("\\s+");
+
+        String result = Arrays.stream(words)
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+                .entrySet().stream()
+                .filter(e -> e.getValue() == 1)
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse("No unique word");
+        System.out.println(result);
+    }
+
+    /* Capitalize the first letter of each word in a string
+     * @param s The input string to be processed
+     * @return void
+     * Approach: Using Java Streams to split, capitalize, and join words
+     * Example: input "java backend developer" -> output "Java Backend Developer"
+     * */
+
+    public static void capitalizeWords(String s) {
+        String result = Arrays.stream(s.split(" "))
+                .map(w -> Character.toUpperCase(w.charAt(0)) + w.substring(1))
+                .collect(Collectors.joining(" "));
+        System.out.println(result);
+    }
+
+    /* Check if a string is a pangram
+     * @param s The input string to be checked
+     * @return void
+     * Approach: Using Java Streams to check for all letters of the alphabet
+     * Example: input "The quick brown fox jumps over the lazy dog" -> output true
+     * */
+
+    public static void pangram(String s) {
+        boolean pangram = s.toLowerCase().chars()
+                .filter(Character::isLetter)
+                .distinct()
+                .count() == 26;
+        System.out.println(pangram);
+    }
+
+    /* Find the longest common prefix among an array of strings
+     * @param words The input array of strings
+     * @return void
+     * Approach: Iteratively comparing prefixes
+     * Example: input ["flower", "flow", "flight"] -> output "fl"
+     * */
+
+    public static void longestCommonPrefix (String[] words) {
+        String prefix = words[0];
+        for (int i = 1; i < words.length; i++) {
+            while (words[i].indexOf(prefix) != 0)
+                prefix = prefix.substring(0, prefix.length() - 1);
+        }
+        System.out.println("Longest common prefix: " + prefix);
+    }
+
+    /* Count the number of words in a string
+     * @param s The input string to be processed
+     * @return void
+     * Approach: Splitting the string by whitespace and counting the resulting array length
+     * Example: input "Java Developer Spring Boot" -> output 4
+     * */
+
+    public static void wordCount(String s) {
+        long count = s.trim().split("\\s+").length;
+        System.out.println("Word count: " + count);
     }
 
 }
