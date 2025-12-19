@@ -8,7 +8,7 @@ public class LeetCodeProblems {
     * Difficulty: Medium
     * */
 
-    public void waterContainer() {
+    public static void waterContainer() {
 
         System.out.println("Max volume is " + maxArea(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}));
 

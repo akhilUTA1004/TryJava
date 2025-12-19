@@ -1,5 +1,6 @@
 
 import tryouts.*;
+import tryouts.leetcodeTryouts.LeetCodeProblems;
 
 void main() {
     IO.println("Hello and welcome!");
@@ -29,5 +30,6 @@ void main() {
     TryString.reverseWordsOrder("This is a sample sentence");
     TryString.stringCompression("aaabbbcccaaa");
     TryString.longestPalindromicSubstring("babad");
+    LeetCodeProblems.waterContainer();
 
 }
