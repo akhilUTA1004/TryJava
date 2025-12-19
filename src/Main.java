@@ -8,7 +8,7 @@ void main() {
         IO.println("i = " + i);
     }*/
 
-    for(int i : [1, 2, 3, 4, 5]) {
+    for(int i : IntStream.range(0,5).toArray()) {
         IO.println("i = " + i);
     }
 
