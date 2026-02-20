@@ -19,6 +19,13 @@ public class TryThoughts {
         }
     }
 
+    /*
+     *
+     * Print the host name of an email address
+     * Example: For the email "abc.def.cgf.hotmail.in"
+     * Output: Host name: abc.def.cgf.hotmail
+     *
+     * */
     public static void printEmailHostName(String email) {
         int at = email.lastIndexOf('@');
         if (at < 0 || at == email.length() - 1) {
