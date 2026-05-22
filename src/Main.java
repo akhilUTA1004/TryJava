@@ -2,6 +2,8 @@
 import tryouts.*;
 import tryouts.leetcodeTryouts.LeetCodeProblems;
 
+import java.util.stream.IntStream;
+
 void main() {
     IO.println("Hello and welcome!");
 
@@ -53,6 +55,24 @@ void main() {
     TryString.longestPalindromicSubstring("babad");
     System.out.println("##############################################################################");
     LeetCodeProblems.waterContainer();
+    System.out.println("##############################################################################");
+    TryLists.createList();
+    TryLists.secondLargestA2();
+    System.out.println("##############################################################################");
+    TryMaps.wordFrequencyA1();
+    TryMaps.sortByValues();
+    System.out.println("##############################################################################");
+    TrySets.intersection();
+    TrySets.findDuplicates();
+    System.out.println("##############################################################################");
+    TryQueues.basicOperations();
+    TryQueues.kthLargest();
+    System.out.println("##############################################################################");
+    TryDeques.useAsStack();
+    TryDeques.slidingWindowMaximum();
+    System.out.println("##############################################################################");
+    TryTrees.inorderTraversal();
+    TryTrees.validateBst();
     System.out.println("##############################################################################");
 
 }
